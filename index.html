@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+			crossorigin="anonymous"
+		/>
+		<title>ToDo</title>
+	</head>
+	<body>
+		<!-- <p class="js-text"></p>
+			
+			<form method="post" class="js-form">
+				<input class="js-inp1" type="text" />
+				<input class="js-inp2" type="text" />
+				<input class="js-inp3" type="text" />
+				<button type="submit">SEND</button>
+			</form>
+			
+			<span class="js-span"></span> -->
+		<h1 class="h1 text-center mb-4 mt-4">ToDo</h1>
+
+		<form class="js-form d-flex w-25 mx-auto input-group" method="post">
+			<input class="js-inp form-control" type="text" />
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</form>
+
+		<ul class="js-list mt-3 mb-4 list-unstyled w-25 mx-auto"></ul>
+
+		<div class="w-25 mx-auto">
+			<button class="btn btn-secondary">
+				All <strong class="js-str1">0</strong>
+			</button>
+			<button class="btn btn-secondary">
+				Complated <strong class="js-str2">0</strong>
+			</button>
+			<button class="btn btn-secondary">
+				UnComplated <strong class="js-str3">0</strong>
+			</button>
+		</div>
+		<script src="./js/main.js"></script>
+	</body>
+</html>
