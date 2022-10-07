@@ -1,0 +1,23 @@
+.dark {
+	background-color: #333;
+}
+
+.dark > div > h1 {
+	color: var(--bs-white);
+}
+
+.dark > div > .darker {
+	background-color: var(--bs-white);
+	color: var(--bs-black);
+}
+
+.dark > ul > li {
+	padding: 5px 10px;
+	border-radius: 5px;
+	background-color: var(--bs-white);
+}
+
+li {
+	padding: 5px 10px;
+	border-radius: 5px;
+}

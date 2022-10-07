@@ -1,30 +1,20 @@
-// let elForm = document.querySelector('.js-form');
-// let elText = document.querySelector('.js-text');
-// let elInp1 = document.querySelector('.js-inp1');
-// let elInp2 = document.querySelector('.js-inp2');
-// let elInp3 = document.querySelector('.js-inp3');
-// let elSpan = document.querySelector('.js-span');
-
-// let newArray = ['bir', 'ikki', 'uch', "to'rt", 'besh'];
-
-// elText.textContent = newArray;
-
-// elForm.addEventListener('submit', function (evt) {
-// 	evt.preventDefault();
-// 	newArray.splice(elInp1.value, elInp2.value, elInp3.value);
-// 	elSpan.textContent = newArray;
-// });
-
 const elForm = document.querySelector('.js-form');
 const elInp = document.querySelector('.js-inp');
 const elList = document.querySelector('.js-list');
 let elStr1 = document.querySelector('.js-str1');
 let elStr2 = document.querySelector('.js-str2');
 let elStr3 = document.querySelector('.js-str3');
+let elBtns = document.querySelector('.js-btns');
+let elDark = document.querySelector('.js-dark-btn');
 
-const newArray = [];
+let parsetArray = JSON.parse(window.localStorage.getItem('array'));
+
+const newArray = parsetArray || [];
 
 let viewEl = (arr, app) => {
+	elStr1.textContent = newArray.length;
+	elStr2.textContent = newArray.filter((el) => el.isComplated).length;
+	elStr3.textContent = newArray.filter((el) => !el.isComplated).length;
 	app.innerHTML = '';
 
 	arr.forEach((item) => {
@@ -55,22 +45,21 @@ let viewEl = (arr, app) => {
 	});
 };
 
+viewEl(newArray, elList);
+
 elForm.addEventListener('submit', function (evt) {
 	evt.preventDefault();
 
 	newArray.push({
-		id: newArray.length + 1,
+		id: newArray.length ? newArray[newArray.length - 1].id + 1 : 1,
 		text: elInp.value,
 		isComplated: false,
 	});
 
-	elStr1.textContent = newArray.length;
-
 	elInp.value = '';
 
-	let unComplated = newArray.filter((el) => !el.isComplated);
-	elStr3.textContent = unComplated.length;
 	viewEl(newArray, elList);
+	window.localStorage.setItem('array', JSON.stringify(newArray));
 });
 
 elList.addEventListener('click', function (evt) {
@@ -81,14 +70,8 @@ elList.addEventListener('click', function (evt) {
 
 		newArray.splice(findind, 1);
 
-		elStr1.textContent = newArray.length;
-
-		let Complated = newArray.filter((el) => el.isComplated);
-		elStr2.textContent = Complated.length;
-
-		let unComplated = newArray.filter((el) => !el.isComplated);
-		elStr3.textContent = unComplated.length;
 		viewEl(newArray, elList);
+		window.localStorage.setItem('array', JSON.stringify(newArray));
 	}
 
 	if (evt.target.matches('.js-check')) {
@@ -97,11 +80,47 @@ elList.addEventListener('click', function (evt) {
 		let findEl = newArray.find((el) => el.id === arrId);
 		findEl.isComplated = !findEl.isComplated;
 
-		let Complated = newArray.filter((el) => el.isComplated);
-		elStr2.textContent = Complated.length;
+		viewEl(newArray, elList);
+		window.localStorage.setItem('array', JSON.stringify(newArray));
+	}
+});
 
-		let unComplated = newArray.filter((el) => !el.isComplated);
-		elStr3.textContent = unComplated.length;
+elBtns.addEventListener('click', function (evt) {
+	if (evt.target.matches('.js-all')) {
+		viewEl(newArray, elList);
+	}
+
+	if (evt.target.matches('.js-comp')) {
+		let comp = newArray.filter((el) => el.isComplated);
+		viewEl(comp, elList);
+	}
+
+	if (evt.target.matches('.js-uncomp')) {
+		let uncomp = newArray.filter((el) => !el.isComplated);
+		viewEl(uncomp, elList);
+	}
+
+	if (evt.target.matches('.js-del-all')) {
+		window.localStorage.removeItem('array');
+		window.location.reload();
 		viewEl(newArray, elList);
 	}
 });
+
+let theme = false;
+
+elDark.addEventListener('click', function () {
+	theme = !theme;
+	window.localStorage.setItem('theme', theme ? 'dark' : 'light');
+	darker();
+});
+
+function darker() {
+	if (window.localStorage.getItem('theme') == 'dark') {
+		document.body.classList.add('dark');
+	} else {
+		document.body.classList.remove('dark');
+	}
+}
+
+darker();
