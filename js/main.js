@@ -6,6 +6,7 @@ let elStr2 = document.querySelector('.js-str2');
 let elStr3 = document.querySelector('.js-str3');
 let elBtns = document.querySelector('.js-btns');
 let elDark = document.querySelector('.js-dark-btn');
+let addFragment = document.createDocumentFragment();
 
 let parsetArray = JSON.parse(window.localStorage.getItem('array'));
 
@@ -36,13 +37,14 @@ let viewEl = (arr, app) => {
 		newItem.appendChild(newInp);
 		newItem.appendChild(newSpan);
 		newItem.appendChild(newBtn);
-		app.appendChild(newItem);
+		addFragment.appendChild(newItem);
 
 		if (item.isComplated) {
 			newSpan.setAttribute('class', 'text-decoration-line-through');
 			newInp.checked = true;
 		}
 	});
+	app.appendChild(addFragment);
 };
 
 viewEl(newArray, elList);
